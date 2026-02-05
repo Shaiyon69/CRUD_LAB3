@@ -1,4 +1,3 @@
-
 # CARS CRUD (Laravel CRUD)
 
 ---
@@ -22,7 +21,6 @@ cd CRUD_LAB3
 
 *OR*
 
-
 #### Kung alala niyo parin yung steps ng pagcopy ng repo na tinuro ni sir Facun yung process nalang na yun
 
 ### Step 2: Install Dependencies
@@ -35,7 +33,7 @@ composer install
 
 ### Step 3: Configure Environment
 
-1. Copy the example environment file (then rename the .env.example(copy) to .env):
+1. Copy and paste `.env.example` file then rename the `.env.example(copy)` to `.env`:
 
 ```
 cp .env.example .env
