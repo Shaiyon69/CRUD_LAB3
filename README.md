@@ -1,5 +1,4 @@
 # CARS CRUD (Laravel CRUD)
-
 ---
 
 ## Installation Guide (For Team Members Na Malolopit)
@@ -79,37 +78,41 @@ Click the link to view the app: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## 📋 Team Roles & Assignments
 
-# *To be posted*
-
+### *To be posted*
 ---
 
-## 🤝 Git Workflow Rules
+## 🤝 Git Workflow (How to Submit Work)
 
-**⚠️ IMPORTANT:** To avoid destroying each other's code, follow these rules strictly.
+**⚠️ CRITICAL RULE:** The `main` branch is **PROTECTED**. You cannot push to it directly. You must use a Pull Request.
 
-1. **NEVER push directly to `main` without testing.**
-2. **ALWAYS pull the latest changes before starting work:**
-
+1. **Pull the latest code first:**
 ```bash
 git checkout main
 git pull origin main
+
 ```
 
-3. **Create your own branch** for your specific feature:
 
+2. **Create your own branch:**
 ```bash
-git checkout -b feature-create-car
+git checkout -b feature-delete-car-logic   # (Change name based on your task)
+
 ```
 
-4. **Save and Upload your work:**
 
+3. **Do your work... then Save & Push:**
 ```bash
 git add .
-git commit -m "Added the form for adding cars"
-git push origin feature-create-product
+git commit -m "Finished the delete function"
+git push origin feature-delete-car-logic
+
 ```
 
-5. **Merge:** Go to GitHub and open a **Pull Request**.
+
+4. **Submit:**
+* Go to GitHub.
+* Click **"Compare & pull request"**.
+* Wait for the Leader to approve and merge it.
 
 
 *OR*
