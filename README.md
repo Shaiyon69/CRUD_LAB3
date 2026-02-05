@@ -61,7 +61,7 @@ DB_PASSWORD=
 3. Run the migrations to create the tables:
 
 ```
-php artisan migrate
+php artisan migrate:fresh --seed
 ```
 
 ### Step 5: Run the Server
@@ -89,14 +89,12 @@ Click the link to view the app: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 ```bash
 git checkout main
 git pull origin main
-
 ```
 
 
 2. **Create your own branch:**
 ```bash
 git checkout -b feature-delete-car-logic   # (Change name based on your task)
-
 ```
 
 
@@ -105,7 +103,6 @@ git checkout -b feature-delete-car-logic   # (Change name based on your task)
 git add .
 git commit -m "Finished the delete function"
 git push origin feature-delete-car-logic
-
 ```
 
 
