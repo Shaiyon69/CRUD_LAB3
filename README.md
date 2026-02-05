@@ -100,14 +100,14 @@ git pull origin main
 3. **Create your own branch** for your specific feature:
 
 ```bash
-git checkout -b feature-create-product  # Example for the "Create" branch
+git checkout -b feature-create-car
 ```
 
 4. **Save and Upload your work:**
 
 ```bash
 git add .
-git commit -m "Added the form for adding products"
+git commit -m "Added the form for adding cars"
 git push origin feature-create-product
 ```
 
@@ -117,7 +117,8 @@ git push origin feature-create-product
 *OR*
 
 ## You can search up how to do it in Source Control in VSCODE
-## Meron na dun yung Pull, Push, And Fetch
+## Meron na dun yung Pull, Push, And Fetch 
+## Pero since need ng PULL REQUEST APPROVAL para di watak watak yung codespace
 
 ---
 *For Cloud Computing subject*
