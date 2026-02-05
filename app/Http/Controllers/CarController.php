@@ -12,6 +12,22 @@ class CarController extends Controller
     {
         //
         return "Index Page para di lang muna mag error yung routing";
+
+       
+       // $cars = Car::all();
+    //return response()->json($cars);  or  // return view('cars.index', compact('cars'));
+       
+    }
+
+    public function show($id)
+    {
+        //
+        return "Show Page para di lang muna mag error yung routing";
+
+        //$car = Car::findOrFail($id);
+
+        //return response()->json($car); or  // return view('cars.show', compact('car'));
+
     }
 
     //ADD
