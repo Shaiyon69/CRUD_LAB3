@@ -15,16 +15,15 @@ Ensure you have the following installed on your machine:
 
 ### Step 1: Clone the Repository
 Open your terminal (Git Bash or VS Code) and run:
-```bash
-git clone [https://github.com/Shaiyon69/CRUD_LAB3.git](https://github.com/Shaiyon69/CRUD_LAB3.git)
+```
+git clone https://github.com/Shaiyon69/CRUD_LAB3.git
 cd CRUD_LAB3
 ```
 
 *OR*
 
-```text
-Kung alala niyo parin yung steps ng pagcopy ng repo na tinuro ni sir Facun yung process nalang na yun
-```
+
+#### Kung alala niyo parin yung steps ng pagcopy ng repo na tinuro ni sir Facun yung process nalang na yun
 
 ### Step 2: Install Dependencies
 
