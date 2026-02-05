@@ -23,7 +23,12 @@ class CarController extends Controller
     //DELETE
     public function destroy($id)
     {
-        //
+        {
+        // // $car->delete();
+
+        // return redirect()->route('cars.index')
+        //                  ->with('success', 'Car deleted successfully!');
+    }
     }
 
     //STORE
