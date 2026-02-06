@@ -52,8 +52,23 @@ class CarController extends Controller
     //UPDATE
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'brand' => 'sometimes|string|max:255',
+            'model' => 'sometimes|string|max:255',
+            'year' => 'sometimes|integer|min:1900|max:2100',
+            'color' => 'sometimes|string|max:255',
+            'price' => 'sometimes|numeric|min:0',
+        ]);
+
+        $car = Car::findOrFail($id);
+        $car->update($request->all());
+        
+        return response()->json([
+            'message' => 'Car updated successfully!',
+            'car' => $car
+        ]);
     }
+    
 
     //EDIT
     public function edit($id)
