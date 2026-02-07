@@ -48,6 +48,7 @@ class CarController extends Controller
         // return redirect()->route('cars.index')
         //                  ->with('success', 'Car deleted successfully!');
         //
+        //
 
     }
 
