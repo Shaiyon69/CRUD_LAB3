@@ -49,7 +49,7 @@ class CarController extends Controller
         //                  ->with('success', 'Car deleted successfully!');
         //
         //
-
+        //
     }
 
     //STORE
