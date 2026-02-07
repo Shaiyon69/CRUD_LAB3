@@ -47,7 +47,10 @@ class CarController extends Controller
         return response()->json(['message' => 'Car deleted successfully']);
         // return redirect()->route('cars.index')
         //                  ->with('success', 'Car deleted successfully!');
-
+        //
+        //
+        //
+        // //
     }
 
     //STORE
