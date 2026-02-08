@@ -11,30 +11,15 @@ class CarController extends Controller
     //READ
     public function index()
     {
-
         $cars = Car::all();
         return response()->json($cars);
-        // return view('cars.index', compact('cars'));
-
     }
 
     //DISPLAY
     public function show($id)
     {
-
         $car = Car::findOrFail($id);
         return response()->json($car);
-        // return view('cars.show', compact('car'));
-
-    }
-
-    //ADD
-    public function create()
-    {
-            return response()->json([
-        'message' => 'Use POST /cars to add a new car'
-        // return view('cars.create');
-    ]);
     }
 
     //DELETE
@@ -42,18 +27,8 @@ class CarController extends Controller
     {
         $car = Car::findOrFail($id);
 
-        if (!$car) {
-            return response()->json(['message' => 'Car not found'], 404);
-        }
-
         $car->delete();
         return response()->json(['message' => 'Car deleted successfully']);
-        // return redirect()->route('cars.index')
-        //                  ->with('success', 'Car deleted successfully!');
-        //
-        //
-        //
-        // //
     }
 
     //STORE
@@ -94,12 +69,5 @@ class CarController extends Controller
             'message' => 'Car updated successfully!',
             'car' => $car
         ]);
-    }
-    
-
-    //EDIT
-    public function edit($id)
-    {
-
     }
 }
