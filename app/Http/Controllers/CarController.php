@@ -31,7 +31,10 @@ class CarController extends Controller
     //ADD
     public function create()
     {
-        //
+            return response()->json([
+        'message' => 'Use POST /cars to add a new car'
+        // return view('cars.create');
+    ]);
     }
 
     //DELETE
@@ -56,7 +59,21 @@ class CarController extends Controller
     //STORE
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'brand' => 'required|string|max:255',
+        'model' => 'required|string|max:255',
+        'year'  => 'required|integer|min:1900|max:2100',
+        'color' => 'required|string|max:255',
+        'price' => 'required|numeric|min:0',
+    ]);
+
+    $car = Car::create($validated);
+
+    return response()->json([
+        'message' => 'Car added successfully',
+        'car' => $car
+    ], 201);
+
     }
 
     //UPDATE
