@@ -8,66 +8,85 @@ use App\Models\Car;
 
 class CarController extends Controller
 {
-    //READ
-    public function index()
+    // --- READ (Index + Search) ---
+    public function index(Request $request)
     {
-        $cars = Car::all();
-        return response()->json($cars);
+        $query = Car::query();
+
+        // 1. Fixed: Added Search Logic
+        if ($request->filled('search')) {
+            $query->where('brand', 'like', "%{$request->search}%")
+                  ->orWhere('model', 'like', "%{$request->search}%");
+        }
+
+        $cars = $query->latest()->paginate(5); // Pagination is better than all()
+
+        // 2. Fixed: Returns View instead of JSON
+        return view('cars.index', compact('cars'));
     }
 
-    //DISPLAY
-    public function show($id)
+    // --- CREATE (Show Form) ---
+    // 3. Fixed: Added missing method
+    public function create()
     {
-        $car = Car::findOrFail($id);
-        return response()->json($car);
+        return view('cars.create');
     }
 
-    //DELETE
-    public function destroy($id)
-    {
-        $car = Car::findOrFail($id);
-
-        $car->delete();
-        return response()->json(['message' => 'Car deleted successfully']);
-    }
-
-    //STORE
+    // --- STORE (Save Data) ---
     public function store(Request $request)
     {
         $validated = $request->validate([
-        'brand' => 'required|string|max:255',
-        'model' => 'required|string|max:255',
-        'year'  => 'required|integer|min:1900|max:2100',
-        'color' => 'required|string|max:255',
-        'price' => 'required|numeric|min:0',
-    ]);
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'year'  => 'required|integer|min:1900|max:2100',
+            'color' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+        ]);
 
-    $car = Car::create($validated);
+        Car::create($validated);
 
-    return response()->json([
-        'message' => 'Car added successfully',
-        'car' => $car
-    ], 201);
-
+        // 4. Fixed: Redirects to index instead of showing JSON
+        return redirect()->route('cars.index')->with('success', 'Car added successfully');
     }
 
-    //UPDATE
+    // --- DISPLAY (Show Details) ---
+    public function show($id)
+    {
+        $car = Car::findOrFail($id);
+        return view('cars.details', compact('car')); // Points to details.blade.php
+    }
+
+    // --- EDIT (Show Form) ---
+    // 5. Fixed: Added missing method
+    public function edit($id)
+    {
+        $car = Car::findOrFail($id);
+        return view('cars.edit', compact('car'));
+    }
+
+    // --- UPDATE (Save Changes) ---
     public function update(Request $request, $id)
     {
         $request->validate([
-            'brand' => 'sometimes|string|max:255',
-            'model' => 'sometimes|string|max:255',
-            'year' => 'sometimes|integer|min:1900|max:2100',
-            'color' => 'sometimes|string|max:255',
-            'price' => 'sometimes|numeric|min:0',
+            'brand' => 'required|string|max:255', // Changed 'sometimes' to 'required' for safety
+            'model' => 'required|string|max:255',
+            'year'  => 'required|integer|min:1900|max:2100',
+            'color' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
         ]);
 
         $car = Car::findOrFail($id);
         $car->update($request->all());
 
-        return response()->json([
-            'message' => 'Car updated successfully!',
-            'car' => $car
-        ]);
+        return redirect()->route('cars.index')->with('success', 'Car updated successfully!');
+    }
+
+    // --- DELETE ---
+    public function destroy($id)
+    {
+        $car = Car::findOrFail($id);
+        $car->delete();
+
+        return redirect()->route('cars.index')->with('success', 'Car deleted successfully');
     }
 }
