@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Car;
+use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
@@ -87,7 +86,7 @@ class CarController extends Controller
             return response()->json($car);
         }
 
-        return redirect()->route('cars.index')->with('success', 'Car updated successfully!');
+        return redirect()->route('cars.index')->with('success', 'Car updated successfully');
     }
 
     public function destroy(Request $request, $id)
