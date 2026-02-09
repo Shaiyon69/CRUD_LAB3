@@ -19,7 +19,7 @@ class CarController extends Controller
             });
         }
 
-        $cars = $query->latest()->paginate(5);
+        $cars = $query->latest()->paginate(10);
 
         if ($request->wantsJson() || $request->is('api/*')) {
             return response()->json($cars);
@@ -49,7 +49,7 @@ class CarController extends Controller
             return response()->json($car, 201);
         }
 
-        return redirect()->route('cars.index')->with('success', 'Car added successfully');
+        return redirect()->route('cars.index');
     }
 
     public function show(Request $request, $id)
@@ -86,7 +86,7 @@ class CarController extends Controller
             return response()->json($car);
         }
 
-        return redirect()->route('cars.index')->with('success', 'Car updated successfully');
+        return redirect()->route('cars.index');
     }
 
     public function destroy(Request $request, $id)
@@ -95,9 +95,9 @@ class CarController extends Controller
         $car->delete();
 
         if ($request->wantsJson() || $request->is('api/*')) {
-            return response()->json(['message' => 'Car deleted successfully']);
+            return response()->noContent();
         }
 
-        return redirect()->route('cars.index')->with('success', 'Car deleted successfully');
+        return redirect()->route('cars.index');
     }
 }
