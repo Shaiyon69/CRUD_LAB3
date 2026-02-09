@@ -14,12 +14,14 @@ class CarController extends Controller
         $query = Car::query();
 
         if ($request->filled('search')) {
-            $query->where('brand', 'like', "%{$request->search}%")
-                  ->orWhere('model', 'like', "%{$request->search}%");
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('brand', 'like', "%{$search}%")
+                ->orWhere('model', 'like', "%{$search}%");
+            });
         }
 
         $cars = $query->latest()->paginate(5);
-
 
         return view('cars.index', compact('cars'));
     }
