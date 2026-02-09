@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-    // --- SMART INDEX (Handles Page Load AND Search Bar) ---
     public function index(Request $request)
     {
         $query = Car::query();
@@ -19,9 +18,7 @@ class CarController extends Controller
 
         $cars = $query->latest()->paginate(5);
 
-        // THE FIX FOR SEARCH BAR:
-        // If the request comes from the JS Search (API), give JSON.
-        // If it comes from the Browser (User), give HTML.
+
         if ($request->is('api/*') || $request->wantsJson()) {
             return response()->json($cars);
         }
@@ -29,21 +26,19 @@ class CarController extends Controller
         return view('cars.index', compact('cars'));
     }
 
-    // --- SHOW (Fixes "Clicking Details leads to API") ---
+
     public function show($id)
     {
         $car = Car::findOrFail($id);
 
-        // THE FIX: Return a VIEW, not JSON
+
         return view('cars.details', compact('car'));
     }
 
-    // --- EDIT (Fixes "Clicking Edit leads to API") ---
     public function edit($id)
     {
         $car = Car::findOrFail($id);
 
-        // THE FIX: Return a VIEW, not JSON
         return view('cars.edit', compact('car'));
     }
 
