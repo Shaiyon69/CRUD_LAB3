@@ -12,25 +12,53 @@ class CarController extends Controller
         $query = Car::query();
 
         if ($request->filled('search')) {
-            $query->where('brand', 'like', "%{$request->search}%")
-                  ->orWhere('model', 'like', "%{$request->search}%");
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('brand', 'like', "%{$search}%")
+                  ->orWhere('model', 'like', "%{$search}%");
+            });
         }
 
         $cars = $query->latest()->paginate(5);
 
-
-        if ($request->is('api/*') || $request->wantsJson()) {
+        if ($request->wantsJson() || $request->is('api/*')) {
             return response()->json($cars);
         }
 
         return view('cars.index', compact('cars'));
     }
 
+    public function create()
+    {
+        return view('cars.create');
+    }
 
-    public function show($id)
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'year'  => 'required|integer|min:1900|max:2100',
+            'color' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        $car = Car::create($validated);
+
+        if ($request->wantsJson() || $request->is('api/*')) {
+            return response()->json($car, 201);
+        }
+
+        return redirect()->route('cars.index')->with('success', 'Car added successfully');
+    }
+
+    public function show(Request $request, $id)
     {
         $car = Car::findOrFail($id);
 
+        if ($request->wantsJson() || $request->is('api/*')) {
+            return response()->json($car);
+        }
 
         return view('cars.details', compact('car'));
     }
@@ -38,36 +66,12 @@ class CarController extends Controller
     public function edit($id)
     {
         $car = Car::findOrFail($id);
-
         return view('cars.edit', compact('car'));
     }
 
-    // --- CREATE ---
-    public function create()
-    {
-        return view('cars.create');
-    }
-
-    // --- STORE ---
-    public function store(Request $request)
-    {
-        $request->validate([
-            'brand' => 'required|string|max:255',
-            'model' => 'required|string|max:255',
-            'year'  => 'required|integer|min:1900|max:2100',
-            'color' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-        ]);
-
-        Car::create($request->all());
-
-        return redirect()->route('cars.index')->with('success', 'Car added successfully');
-    }
-
-    // --- UPDATE ---
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $validated = $request->validate([
             'brand' => 'required|string|max:255',
             'model' => 'required|string|max:255',
             'year'  => 'required|integer|min:1900|max:2100',
@@ -76,16 +80,23 @@ class CarController extends Controller
         ]);
 
         $car = Car::findOrFail($id);
-        $car->update($request->all());
+        $car->update($validated);
+
+        if ($request->wantsJson() || $request->is('api/*')) {
+            return response()->json($car);
+        }
 
         return redirect()->route('cars.index')->with('success', 'Car updated successfully');
     }
 
-    // --- DESTROY ---
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $car = Car::findOrFail($id);
         $car->delete();
+
+        if ($request->wantsJson() || $request->is('api/*')) {
+            return response()->json(['message' => 'Car deleted successfully']);
+        }
 
         return redirect()->route('cars.index')->with('success', 'Car deleted successfully');
     }
