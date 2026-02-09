@@ -64,7 +64,7 @@ class CarController extends Controller
 
         $car = Car::findOrFail($id);
         $car->update($request->all());
-        
+
         return response()->json([
             'message' => 'Car updated successfully!',
             'car' => $car
