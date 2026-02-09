@@ -9,7 +9,7 @@ class CarSeeder extends Seeder
 {
     public function run(): void
     {
-        //fake data for cars
+        
         Car::truncate();
 
         Car::create([
